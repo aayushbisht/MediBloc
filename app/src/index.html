@@ -24,6 +24,17 @@
         .navbar {
             margin-bottom: 70px;
         }
+
+        .center {
+            border: 5px solid;
+            text-align: center;
+        }
+
+        .container {
+            position: absolute;
+            top: 45%;
+            left: 10%
+        }
     </style>
 
 </head>
@@ -63,6 +74,7 @@
         <div id="includedContent"></div>
     </div>
 
+
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -84,7 +96,7 @@
                     <div class="form-group">
                     </div>
                 </form>
-                
+
                 <div class="text-center">
                     <button class="btn btn-primary btn-lg" onclick="login()">Patient Login</button>
                     <button class="btn btn-primary btn-lg" onclick="login1()">Doctor Login</button>
@@ -94,6 +106,7 @@
             </div>
             <div class="panel-footer">
             </div>
+
         </div>
 
     </div>
@@ -114,22 +127,24 @@
 
             publicKey = web3.currentProvider.selectedAddress;
             console.log(publicKey);
-                        contractInstance.get_patient_list(function (error, result) {
-                            if (!error) {
-                                var PatientList = result;
-                                for (var i = 0; i < PatientList.length; i++) {
-                                    if (publicKey.toLowerCase() == PatientList[i]) {
-                                        location.href = "./patient.html?key=" + publicKey;
-                                    }
-                                }
-
-                            } else {
-                                console.log(error);
-                                console.log("Invalid User!");
-                                $(".alert-warning").show();
-                            }
-                        });
+            contractInstance.get_patient_list(function (error, result) {
+                if (!error) {
+                    var PatientList = result;
+                    for (var i = 0; i < PatientList.length; i++) {
+                        if (publicKey.toLowerCase() == PatientList[i]) {
+                            location.href = "./patient.html?key=" + publicKey;
+                        }
                     }
+
+                } else {
+                    console.log(error);
+                    console.log("Invalid User!");
+                    $(".alert-warning").show();
+                }
+            });
+            console.log("Invalid User!");
+            $(".alert-warning").show();
+        }
 
         function login1() {
             $(".alert-warning").hide();
